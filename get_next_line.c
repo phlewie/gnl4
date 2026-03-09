@@ -1,11 +1,11 @@
-static char	*append_to_buffer(char *buffer,, char *buf, int n)
+static char	*append_to_buffer(char *buffer, char *buf, int n)
 {
 	char	*tmp;
 
 	buf[n] = '\0';
 	tmp = ft_strjoin(buffer, buf);
 	if (!tmp)
-		return (NULL);
+		return(free(buffer), NULL);
 	free(buffer);
 	return (tmp);
 }
@@ -26,8 +26,8 @@ static char	*read_to_buffer(int fd, char *buffer)
 		buffer = append_to_buffer(buffer, read_buf, read_value);
 		if (!buffer)
 			return (free(read_buf), NULL);
-		}
 	}
+
 	free(read_buf);
 	if (read_value < 0)
 		return (free(buffer), NULL);
