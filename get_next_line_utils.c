@@ -1,3 +1,5 @@
+#include "get_next_line.h"
+
 size_t	ft_strlen(const char	*str)
 {
 	size_t	len;
@@ -49,11 +51,13 @@ char	*ft_strjoin(const char *s1, const char *s2)
 	return (re);
 }
 
-void	*ft_strchr(const char *s, int c)
+char	*ft_strchr(const char *s, int c)
 {
 	char to_find;
 	char *ptr;
 
+	if (!s)
+		return (NULL);
 	ptr = (char *)s;
 	to_find = (char)c;
 	while(*ptr)

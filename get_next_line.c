@@ -1,3 +1,6 @@
+#include "get_next_line.h"
+#include <stdio.h>
+
 static char	*append_to_buffer(char *buffer, char *buf, int n)
 {
 	char	*tmp;
@@ -81,20 +84,20 @@ static char	*update_buffer(char *buffer)
 
 char	*get_next_line(int fd)
 {
-	static char	*buffer;
+	static char	*buffer[1024];
 	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	buffer = read_to_buffer(fd, buffer);
-	if (!buffer)
+	buffer[fd] = read_to_buffer(fd, buffer[fd]);
+	if (!buffer[fd])
 		return (NULL);
-	line = extract_line(buffer);
+	line = extract_line(buffer[fd]);
 	if (!line)
 	{
-		free(buffer);
+		free(buffer[fd]);
 		return (NULL);
 	}
-	buffer = update_buffer(buffer);
+	buffer[fd] = update_buffer(buffer[fd]);
 	return (line);
 }
